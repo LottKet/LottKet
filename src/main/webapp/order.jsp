@@ -71,13 +71,31 @@
 <header id="header">
   <script src="js/header.js"></script>
 </header>
+<div style="width:1000px; height:700px;">
+<button style="width:300px; margin-left: 400px; margin-top:100px; height:200px" onclick="openDaum()">배송지 변경</button>
+</div>
 
+  <div id="SearchLayer" style="width:500px; height:700px; background-color: #fa94fa">
+    <span id="id_span">집이어디니 어머님이 누구니</span>
+  </div>
+
+<script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script>
+  function openDaum() {
+    new daum.Postcode({
+      oncomplete: function(data) {
+        console.log(data);
+        document.getElementById("id_span").innerText = data.address;
+      }
+    }).open();
+  }
+</script>
 
 
 
   <div id="map_wrap" class="map_wrap"
-       style="display:none; height:800px; width:1500px; margin-left:5%; margin-top:5%;">
-    <div id="map" style="width:100%;height:100%;position:relative;overflow:hidden;"></div>
+       style="display:none; height:400px; width:1500px; margin-left:5%; margin-top:5%;">
+    <div id="map" style="width:100%;height:100%;position:relative;"></div>
     <div class="hAddr">
       <span class="title">지도중심기준 행정동 주소정보</span>
       <span id="centerAddr"></span>
@@ -88,6 +106,7 @@
           src="//dapi.kakao.com/v2/maps/sdk.js?appkey=7a3a9cd4830c8f8ae415f16baa3d136f&libraries=services">
   </script>
   <script>
+
         var mapContainer = document.getElementById('map'), // 지도를 표시할 div
           mapOption = {
             center: new kakao.maps.LatLng(37.566826, 126.9786567), // 지도의 중심좌표
@@ -158,6 +177,10 @@
           searchAddrFromCoords(map.getCenter(), displayCenterInfo);
         });
 
+
+
+
+
         function searchAddrFromCoords(coords, callback) {
           // 좌표로 행정동 주소 정보를 요청합니다
           geocoder.coord2RegionCode(coords.getLng(), coords.getLat(), callback);
@@ -199,17 +222,15 @@
         /// 화면의 중앙에 레이어띄움
         function where(input) {
           wrapWindowByMask();
-          $("#map_wrap").css("position", "absolute");
-          $("#map_wrap").css("top", Math.max(0, (($(window).height() - $("#map_wrap").outerHeight()) / 2) + $(window)
-            .scrollTop() - 100) + "px");
-          $("#map_wrap").css("left", Math.max(0, (($(window).width() - $("#map_wrap").outerWidth()) / 2) + $(window)
-            .scrollLeft()) + "px");
-          $('#map_wrap').show();
-          $('#map_wrap').show();
+          $("#SearchLayer").css("position", "absolute");
+          $("#SearchLayer").css("top", Math.max(0, (($(window).height() - $("#SearchLayer").outerHeight()) / 2) + $(window)
+                  .scrollTop() - 100) + "px");
+          $("#SearchLayer").css("left", Math.max(0, (($(window).width() - $("#SearchLayer").outerWidth()) / 2) + $(window)
+                  .scrollLeft()) + "px");
 
           setTimeout(function () {
             $('html').click((e) => {
-              if (e.target.id !== 'map_wrap' && $(e.target).parents('#map_wrap').length === 0) {
+              if (e.target.id !== 'map_wrap' && $(e.target).parents('#SearchLayer').length === 0) {
                 location.reload();
               }
             });

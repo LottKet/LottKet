@@ -1,3 +1,11 @@
+let sessionProduct = JSON.parse(localStorage.getItem("recentProduct") || "[]"); //값 가져오기
+let recentProduct1 = sessionProduct[sessionProduct.length -1]
+let recentProduct2 = sessionProduct[sessionProduct.length -2]
+let recentProduct3 = sessionProduct[sessionProduct.length -3]
+let recentProduct4 = sessionProduct[sessionProduct.length -4]
+let recentProduct5 = sessionProduct[sessionProduct.length -5]
+
+
 let headerContents = '';
 headerContents += 
 `
@@ -43,7 +51,20 @@ headerContents +=
           <a href="category.do?productCategory=수산">수산<a/>
           <a href="category.do?productCategory=냉동">냉동<a/>
           <hr>
-        </div>
+    </div>
+    
+    <div style="width:110px; height:590px; font-weight:bold; position:fixed; right:80px; background-color: #ff4769; z-index:99; border-radius: 2em; ">
+    <br>
+        <span style="margin-left:14px; color:white;">최근 본 상품</span>
+        <br><br>
+        <ul style="margin-left:4px;">
+            <li><img id="recentImg1" style="width:100px; height:100px; background-color: white;" ></li>
+            <li><img id="recentImg2" style="width:100px; height:100px; background-color: white;" ></li>
+            <li><img id="recentImg3" style="width:100px; height:100px; background-color: white;" ></li>
+            <li><img id="recentImg4" style="width:100px; height:100px; background-color: white;" ></li>
+            <li><img id="recentImg5" style="width:100px; height:100px; background-color: white;" ></li>
+        </ul>
+    </div>
 `
 document.getElementById('header').innerHTML = headerContents;
 if (sessionStorage.getItem("sessionId") != null) {
@@ -59,19 +80,26 @@ if (sessionStorage.getItem("sessionId") == null) {
 console.log(sessionStorage.getItem("sessionId"));
 
 
-function kakaoLogout() {
-  sessionStorage.clear();
-  if (Kakao.Auth.getAccessToken()) {
-    Kakao.API.request({
-      url: '/v1/user/unlink',
-      success: function (response) {
-        console.log(response)
-      },
-      fail: function (error) {
-        console.log(error)
-      },
-    })
-    Kakao.Auth.setAccessToken(undefined)
-  }
-  window.location = "main.do";
-}
+document.getElementById("recentImg1").src = recentProduct1.recentProductImg;
+document.getElementById("recentImg2").src = recentProduct2.recentProductImg;
+document.getElementById("recentImg3").src = recentProduct3.recentProductImg;
+document.getElementById("recentImg4").src = recentProduct4.recentProductImg;
+document.getElementById("recentImg5").src = recentProduct5.recentProductImg;
+
+//
+// let pathname = window.location.pathname;
+// let fit_pathname = pathname.split('/');
+// let file_name = fit_pathname[fit_pathname.length -1];
+//
+// if(file_name == 'detail.do' & localStorage.getItem("recentProduct") != null) {
+//   sessionProduct = JSON.parse(localStorage.getItem("recentProduct") || "[]"); //값 가져오기
+//   sessionProduct.push({
+//     recentProductImg: "<%=productImageDto.get(0).getProductImageUrl()%>",
+//     recentProductUrl: window.location.href
+//   })
+//   console.log(sessionProduct);
+//   localStorage.setItem("recentProduct", JSON.stringify(sessionProduct));
+//
+// } else {
+//   var productObj = [{recentProductImg: "<%=productImageDto.get(0).getProductImageUrl()%>", recentProductUrl: window.location.href}];
+// }

@@ -43,9 +43,8 @@ header .inner .util {
   width: 300px;
   position: absolute;
   justify-content: center;
-  margin-top: 2%;
-  right: 30px;
-
+  margin-top: 20px;
+  left: 1250px;
 }
 
 header .inner .util li {
@@ -68,9 +67,8 @@ header .inner .main {
 
 header .inner #gnb {
   position: absolute;
-  margin-right: 5%;
-  bottom: 0px;
-  right: 0px;
+  margin-left: 1300px;
+  margin-top: 60px;
 }
 
 header .inner #gnb li {
@@ -200,15 +198,16 @@ header .inner #gnb li a:hover {
 }
 
 .button_count button {
-  width: 70px;
+  width: 50px;
   border: none;
   font-size: large;
   font-weight: bold;
-  height: 70px;
+  height: 50px;
   color: white;
   border-radius: 1em;
-  background-color: #9e9b9b;
+  background-color: red;
   cursor: pointer;
+  margin-right: 20px;
 }
 
 .button_order button{
@@ -225,6 +224,31 @@ header .inner #gnb li a:hover {
 
 .detail_review_ul ul{
 	margin-bottom: 30px;
+}
+
+.reviewList{
+  font-size : large;
+  margin-bottom: 50px;
+}
+
+.userName{
+  font-size:x-large;
+  font-weight:bold;
+  color: white;
+  background-color: #e7bef5;
+  border-radius: 1em;
+}
+
+.reviewList_text{
+  font-weight: bold;
+}
+
+.div_insert_review img{
+  width:20px;
+}
+
+.div_best{
+  margin-bottom:50px;
 }
 
 /* footer */
@@ -294,7 +318,7 @@ footer .inner .lower p {
 .div_logo {
   position: absolute;
   top: 20px;
-  margin-left: 10%;
+  margin-left: 150px;
 }
 
 .inner img {
@@ -311,12 +335,13 @@ footer .inner .lower p {
   border-color: inherit;
   color: #ef2a23;
   position: absolute;
-  left: 30%;
-  top: 50%;
+  left: 600px;
+  top: 50px;
 }
 
 .searchArea i {
-  left: 450px;
+  margin-left:380px;
+  margin-top:8px;
 }
 
 #mainLayout header.on {

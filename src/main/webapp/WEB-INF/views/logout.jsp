@@ -40,54 +40,19 @@
         }
 
     </style>
-    <script>
-        sessionStorage.clear();
-        window.onload = function () {
-            kakaoLogout();
-        }
 
-    </script>
 </head>
 <script>
     Kakao.init('7a3a9cd4830c8f8ae415f16baa3d136f'); //발급받은 키 중 javascript키를 사용해준다.
     console.log(Kakao.isInitialized()); // sdk초기화여부판단
-    //카카오로그인
-    function kakaoLogin() {
-        Kakao.Auth.login({
-            success: function (response) {
-                Kakao.API.request({
-                    url: '/v2/user/me',
-                    success: function (response) {
-                        console.log(response)
-                        sendRequest(response);
 
-                        const sessionData = response;
-                        // const sessionData = response.kakao_account.email;
-
-                        sessionStorage.setItem("sessionId", sessionData); // 저장
-
-                        if (sessionStorage.getItem("sessionId") != null) {
-                            window.location = "index.html"
-                        }
-
-                    },
-                    fail: function (error) {
-                        console.log(error)
-                    },
-                })
-            },
-            fail: function (error) {
-                console.log(error)
-            },
-        })
-    }
-    //카카오로그아웃
     function kakaoLogout() {
         if (Kakao.Auth.getAccessToken()) {
             Kakao.API.request({
                 url: '/v1/user/unlink',
                 success: function (response) {
-                    window.location = 'main.do';
+                    console.log('kakaologout.');
+                      window.location = 'main.do';
                 },
                 fail: function (error) {
                     console.log(error)
@@ -101,17 +66,9 @@
 <body>
 </body>
 <script>
-    function sendRequest(response) {
-        $.ajax({
-            url: "./login_ajax.html",
-            type: "get",
-            data: response,
-            dataType: "json",
-            success: function (result) {
-                alert(response);
-            }
-        });
+    sessionStorage.clear();
+    window.onload = function () {
+        kakaoLogout();
     }
-
 </script>
 </html>

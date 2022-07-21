@@ -53,11 +53,9 @@
   function kakaoLogin() {
     Kakao.Auth.login({
       success: function (response) {
-        console.log(response)
         Kakao.API.request({
           url: '/v2/user/me',
           success: function (result) {
-            console.log(result);
             sendRequest(result);
 
             const sessionData = response;
@@ -130,27 +128,13 @@
 </body>
 <script>
   function sendRequest(response) {
-    console.log("hello");
-    console.log(response);
-
     $.ajax({
       url: "<%=request.getContextPath()%>/signIn.do",
       type: "post",
       data:JSON.stringify(response),
       dataType:'text',
       contentType:"application/json;charset=UTF-8",
-      success: function (result) {
-        <%--if(result == "signIn") {--%>
-        <%--  alert("로그인 완료");--%>
-        <%--}else if (result == "signUp") {--%>
-        <%--  alert("회원가입 완료");--%>
-        <%--}else if(result == "fail") {--%>
-        <%--  alert("로그인 실패");--%>
-        <%--}else if(result == "error") {--%>
-        <%--  alert("에러");--%>
-        <%--}--%>
-        <%--location.href="<%=request.getContextPath()%>/main.do";--%>
-      }
+      success: function (result) {}
     });
   }
 

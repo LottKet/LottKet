@@ -4,7 +4,7 @@ public class ProductImageDto {
     private int productImageIdx;
     private int productId;
     private String productImageUrl;
-
+    private String productTitle;
     public ProductImageDto() {
 
     }
@@ -13,6 +13,13 @@ public class ProductImageDto {
         this.productId = productId;
         this.productImageIdx = productImageIdx;
         this.productImageUrl = productImageUrl;
+    }
+
+    public ProductImageDto(int productImageIdx, int productId, String productImageUrl, String productTitle) {
+        this.productImageIdx = productImageIdx;
+        this.productId = productId;
+        this.productImageUrl = productImageUrl;
+        this.productTitle = productTitle;
     }
 
     public int getProductImageIdx() {
@@ -25,6 +32,14 @@ public class ProductImageDto {
 
     public String getProductImageUrl() {
         return productImageUrl;
+    }
+
+    public String getProductTitle() {
+        return productTitle;
+    }
+
+    public void setProductTitle(String productTitle) {
+        this.productTitle = productTitle;
     }
 
     public void setProductImageIdx(int productImageIdx) {
@@ -45,7 +60,7 @@ public class ProductImageDto {
                 "productImageIdx=" + productImageIdx +
                 ", productId=" + productId +
                 ", productImageUrl='" + productImageUrl + '\'' +
+                ", productName='" + productTitle + '\'' +
                 '}';
     }
-
 }

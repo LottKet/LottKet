@@ -1,11 +1,8 @@
 package lotte.com.lottket.controller;
-import lotte.com.lottket.service.category.CategoryService;
 import lotte.com.lottket.service.product.DBInitialize;
 import lotte.com.lottket.service.product.ProductService;
-import com.google.gson.Gson;
 import lotte.com.lottket.dto.ProductDto;
 import lotte.com.lottket.dto.ProductImageDto;
-import lotte.com.lottket.service.product.ProductService;
 import org.codehaus.jackson.map.ObjectMapper;
 import org.json.JSONObject;
 import org.slf4j.Logger;
@@ -17,17 +14,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
 import java.util.List;
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
-@Controller 
+@Controller
 public class ProductController {
 
     Logger logger = LoggerFactory.getLogger(ProductController.class);

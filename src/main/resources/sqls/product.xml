@@ -110,4 +110,11 @@
         where productid=#{productId}
 
     </select>
+
+    <!--id로 title갖고오기-->
+    <select id="getTitle" parameterType="int" resultType="String">
+        SELECT producttitle
+        FROM product
+        WHERE productid=#{productId}
+    </select>
 </mapper>
