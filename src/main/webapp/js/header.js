@@ -7,8 +7,8 @@ let recentProduct5 = sessionProduct[sessionProduct.length -5]
 
 
 let headerContents = '';
-headerContents += 
-`
+headerContents +=
+    `
     <div class="inner" style="background:#eee">
       <div class="headerWrapper">
         <div class="util innerContent">
@@ -31,8 +31,8 @@ headerContents +=
 
           <div>
             <ul id="gnb">
-              <li><a href="mypage.html">My Page</a></li>
-              <li><a href="#">장바구니</a></li>
+              <li><a href="mypage.do">My Page</a></li>
+              <li><a href="cart.do">장바구니</a></li>
             </ul>
           </div>
 
@@ -43,13 +43,13 @@ headerContents +=
       </div>
     </div>
     <div class="nav_category">
-          <a href="category.do?productCategory=과일">과일</a>
+          <a href='category.do?productCategory=과일'>과일</a>
           <a href="category.do?productCategory=채소">채소</a>
-          <a href="category.do?productCategory=잡곡">잡곡</a>
-          <a href="category.do?productCategory=견과">견과</a>
-          <a href="category.do?productCategory=정육">정육<a/>
-          <a href="category.do?productCategory=수산">수산<a/>
-          <a href="category.do?productCategory=냉동">냉동<a/>
+          <a href="category.do?productCategory=잡곡견과">잡곡·견과</a>
+          <a href="category.do?productCategory=수산">수산</a>
+          <a href="category.do?productCategory=정육계란">정육계란<a/>
+          <a href="category.do?productCategory=유제품">유제품<a/>
+          <a href="category.do?productCategory=냉동냉장">냉동냉장<a/>
           <hr>
     </div>
     
@@ -67,17 +67,15 @@ headerContents +=
     </div>
 `
 document.getElementById('header').innerHTML = headerContents;
-if (sessionStorage.getItem("sessionId") != null) {
+if (sessionStorage.getItem("id") != null) {
   document.getElementById("logout_li").style.display = "";
   document.getElementById("login_li").style.display = "none";
 }
 
-if (sessionStorage.getItem("sessionId") == null) {
+if (sessionStorage.getItem("id") == null) {
   document.getElementById("logout_li").style.display = "none";
   document.getElementById("login_li").style.display = "";
 }
-
-console.log(sessionStorage.getItem("sessionId"));
 
 
 document.getElementById("recentImg1").src = recentProduct1.recentProductImg;
@@ -102,4 +100,5 @@ document.getElementById("recentImg5").src = recentProduct5.recentProductImg;
 //
 // } else {
 //   var productObj = [{recentProductImg: "<%=productImageDto.get(0).getProductImageUrl()%>", recentProductUrl: window.location.href}];
+
 // }

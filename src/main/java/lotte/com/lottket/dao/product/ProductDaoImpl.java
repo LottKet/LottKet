@@ -1,5 +1,6 @@
 package lotte.com.lottket.dao.product;
 
+import lotte.com.lottket.dto.ProductDetailDto;
 import lotte.com.lottket.dto.ProductDto;
 import lotte.com.lottket.dto.ProductImageDto;
 import org.apache.ibatis.session.SqlSession;
@@ -33,6 +34,11 @@ public class ProductDaoImpl implements ProductDao{
     }
 
     @Override
+    public void insertOneDetailImage(ProductDetailDto dto) {
+        session.insert(ns + "insertOneDetailImage", dto);
+    }
+
+    @Override
     public boolean checkIfEmptyDB() {
         if( session.selectList(ns + "checkIfEmptyDB").size()  > 0)
             return false;   // not empty
@@ -47,11 +53,15 @@ public class ProductDaoImpl implements ProductDao{
 
     @Override
     public int updateProduct(ProductDto dto) {
+        Long id = getId(dto);
+        dto.setProductId(id);
         return session.update(ns + "updateProduct", dto);
     }
 
     @Override
     public int deleteProduct(ProductDto dto) {
+        Long id = getId(dto);
+        dto.setProductId(id);
         return session.delete(ns + "deleteProduct", dto);
     }
 

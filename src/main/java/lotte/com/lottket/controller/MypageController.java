@@ -1,33 +1,63 @@
-//package lotte.com.lottket.controller;
-//
-//import lotte.com.lottket.dto.UserDto;
-//import lotte.com.lottket.service.mypage.MypageService;
-//import lotte.com.lottket.service.user.UserSevice;
-//import org.slf4j.Logger;
-//import org.slf4j.LoggerFactory;
-//import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.ui.Model;
-//import org.springframework.web.bind.annotation.RequestMapping;
-//import org.springframework.web.bind.annotation.RequestMethod;
-//import org.springframework.web.bind.annotation.ResponseBody;
-//
-//public class MypageController {
-//    Logger logger = LoggerFactory.getLogger(MypageController.class);
-//
-//    @Autowired
-//    MypageService service;
-//
-//    @RequestMapping(value="mypage.do", method = RequestMethod.GET)
-//    public String showUserInfo(UserDto dto, Model model) {
-//        int count = service.signIn(dto);
-//
-//        return count>0?"YES":"NO";
-//    }
-//
-//    @RequestMapping(value="myorder.do", method = RequestMethod.GET)
-//    public String showUserOrder(UserDto dto) {
-//        int count = service.signIn(dto);
-//
-//        return count>0?"YES":"NO";
-//    }
-//}
+package lotte.com.lottket.controller;
+
+import lotte.com.lottket.dto.OrderDto;
+import lotte.com.lottket.dto.OrdersDto;
+import lotte.com.lottket.dto.UserDto;
+import lotte.com.lottket.service.mypage.MypageService;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+public class MypageController {
+
+    @Autowired
+    MypageService service;
+    Logger logger = LoggerFactory.getLogger(MypageController.class);
+
+    /**
+     * 내 주문 전부 조회
+     */
+    @RequestMapping(value="mypage.do", method = RequestMethod.GET)
+    public String showAllMyOrders(@RequestParam("userId") Long userId, Model model) {
+        List<HashMap> list = service.showAllMyOrders(userId);
+
+        model.addAttribute("list", list);
+        model.addAttribute("userId", userId);
+        return "mypage";
+    }
+
+
+    /**
+     * 배송지 변경  with Ajax Button
+     * @param map (Long orderId, String newOrderAddress)
+     * @return String
+     */
+    @RequestMapping(value="mypageupdateorderaddress.do", method = RequestMethod.POST)
+    @ResponseBody
+    public String changeOrderDestination(@RequestBody HashMap<String, Object> map) {
+        int count = service.changeOrderDestination(map);
+
+        return count>0?"YES":"NO";
+    }
+
+
+    /**
+     * 주문 취소 Ajax Button
+     * @param Long orderId
+     * @return String
+     */
+    @RequestMapping(value="mypagedeleteorder.do", method = RequestMethod.POST)
+    @ResponseBody
+    public String cancelOrder(@RequestBody Long orderId) {
+        int count = service.cancelOrder(orderId);
+
+        return count>0?"YES":"NO";
+    }
+
+}

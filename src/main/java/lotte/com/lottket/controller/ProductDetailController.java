@@ -19,14 +19,13 @@ public class ProductDetailController {
     //Logger logger = LoggerFactory.getLogger(MainController.class);
 
     @RequestMapping(value = "detail.do")
-    public String detail(Model model){
-        int id=2;
+    public String detail(int productid, Model model){
 
-        ProductDto productDto = productDetailService.productById(id);
-        List<ProductImageDto> productImageDto = productDetailService.productImageById(id);
-        List<ProductDetailDto> productDetailDto = productDetailService.productDetailById(id);
-        List<ReviewJoinUser> reviewJoinUserDto = productDetailService.reviewById(id);
-        List<ReviewJoinReply> reviewJoinReplyDto = productDetailService.replyById(id);
+        ProductDto productDto = productDetailService.productById(productid);
+        List<ProductImageDto> productImageDto = productDetailService.productImageById(productid);
+        List<ProductDetailDto> productDetailDto = productDetailService.productDetailById(productid);
+        List<ReviewJoinUser> reviewJoinUserDto = productDetailService.reviewById(productid);
+        List<ReviewJoinReply> reviewJoinReplyDto = productDetailService.replyById(productid);
 
         model.addAttribute("productDto",productDto);
         model.addAttribute("productImageDto",productImageDto);
@@ -38,61 +37,53 @@ public class ProductDetailController {
     }
 
     @RequestMapping(value = "getProductById.do")
-    public String getProductById(Model model){
-        int id = 2;
+    public String getProductById(int productid, Model model){
 
-        ProductDto productDto = productDetailService.productById(id);
+        ProductDto productDto = productDetailService.productById(productid);
         model.addAttribute("productDto",productDto);
 
         return "/detail.jsp";
     }
 
     @RequestMapping(value = "getProductImageById.do")
-    public String getProductImageById(Model model){
-        int id = 2;
+    public String getProductImageById(int productid, Model model){
 
-        List<ProductImageDto> productImageDto = productDetailService.productImageById(id);
+        List<ProductImageDto> productImageDto = productDetailService.productImageById(productid);
         model.addAttribute("productImageDto",productImageDto);
 
         return "/detail.jsp";
     }
 
     @RequestMapping(value = "getProductDetailById.do")
-    public String getProductDetailById(Model model) {
-        int id = 2;
+    public String getProductDetailById(int productid, Model model) {
 
-        List<ProductDetailDto> productDetailDto = productDetailService.productDetailById(id);
+        List<ProductDetailDto> productDetailDto = productDetailService.productDetailById(productid);
         model.addAttribute("productDetailDto", productDetailDto);
 
         return "detail";
     }
 
     @RequestMapping(value = "getReviewById.do")
-    public String getReviewById(Model model){
-        int id = 2;
+    public String getReviewById(int productid, Model model){
 
-        List<ReviewJoinUser> reviewJoinUserDto = productDetailService.reviewById(id);
+        List<ReviewJoinUser> reviewJoinUserDto = productDetailService.reviewById(productid);
         model.addAttribute("reviewJoinUserDto", reviewJoinUserDto);
 
         return "detail";
     }
 
     @RequestMapping(value = "getReplyById.do")
-    public String getReplyById(Model model){
-        int id = 2;
+    public String getReplyById(int productid, Model model){
 
-        List<ReviewJoinReply> reviewJoinReplyDto = productDetailService.replyById(id);
+        List<ReviewJoinReply> reviewJoinReplyDto = productDetailService.replyById(productid);
         model.addAttribute("reviewJoinReplyDto", reviewJoinReplyDto);
 
         return "detail";
     }
 
     @RequestMapping(value = "insertReview.do")
-    @ResponseBody
-    public String insertReview(Model model) {
+    public String insertReview(int productId, String content, Model model) {
         int userId = 1;
-        int productId = 2;
-        String content = "또 먹고 싶어요";
         double rating = 5;
 
         HashMap<String, Object> review = new HashMap<String, Object>();
@@ -102,12 +93,17 @@ public class ProductDetailController {
         review.put("rating", rating);
 
         int count = productDetailService.insertReview(review);
+        int count1 = productDetailService.updateRate(productId);
 
-        return "hihi";
+        ProductDto productDto = productDetailService.productById(productId);
+        List<ReviewJoinUser> reviewJoinUserDto = productDetailService.reviewById(productId);
+
+        model.addAttribute("productDto",productDto);
+        model.addAttribute("reviewJoinUserDto", reviewJoinUserDto);
+        return "reviewhtml";
     }
 
     @RequestMapping(value = "insertReply.do")
-    @ResponseBody
     public String insertReply(Model model){
         int replyId = 1;
         String content = "고맙습니다";

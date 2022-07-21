@@ -1,5 +1,6 @@
 package lotte.com.lottket.controller;
 
+import lotte.com.lottket.dto.OrdersDto;
 import lotte.com.lottket.service.admin.AdminService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -25,7 +26,7 @@ public class AdminController {
      */
     @RequestMapping(value="selectPopulalityProduct.do", method = RequestMethod.POST)
     @ResponseBody
-    public List<HashMap> selectPopulalityProduct(@RequestBody Map<String, String> map) {
+    public List<HashMap> selectPopulalityProduct(@RequestBody Map<String, Object> map) {
         logger.info("selectPopulalityProduct hello" + new Date());
         return adminService.selectPopulalityProduct((HashMap) map);
     }
@@ -67,6 +68,18 @@ public class AdminController {
     }
 
     /***
+     * 전체 주문 조회
+     * @param map
+     * @return List<HashMap></HashMap>
+     */
+    @RequestMapping(value="selectTotalOrders.do", method = RequestMethod.POST)
+    @ResponseBody
+    public List<OrdersDto>  selectTotalOrders(@RequestBody Map<String, Object> map) {
+        logger.info("selectTotalOrders hello" + new Date());
+        return adminService.selectTotalOrders((HashMap) map);
+    }
+
+    /***
      *어드민 페이지 이동
      * @param model
      * @return admin
@@ -83,19 +96,10 @@ public class AdminController {
      * @return HashMap
      */
     @RequestMapping(value = "orders.do")
-    public List<HashMap> selectOrder(Model model){
-        logger.info("selectOrder hello" + new Date());
-
-        return adminService.selectTotalOrders((HashMap) model.getAttribute("totalOrders"));
+    public String selectOrder(Model model){
+        logger.info("orders hello" + new Date());
+        return "orders";
     }
-
-    @RequestMapping(value="admin/selectTotalOrders", method = RequestMethod.GET)
-    @ResponseBody
-    public List<HashMap>  selectTotalOrders(Model model) {
-
-        return adminService.selectTotalOrders((HashMap) model.getAttribute("selectTotalOrders"));
-    }
-
 
 
 

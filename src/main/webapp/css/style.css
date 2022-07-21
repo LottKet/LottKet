@@ -190,8 +190,8 @@ header .inner #gnb li a:hover {
 }
 
 .detail_product_img3 h2 span{
-	margin-left: 50px;
-  }
+  margin-left: 50px;
+}
 
 .detail_review li {
   margin-left: 100px;
@@ -223,7 +223,28 @@ header .inner #gnb li a:hover {
 }
 
 .detail_review_ul ul{
-	margin-bottom: 30px;
+  margin-bottom: 30px;
+}
+
+.reviewList{
+  font-size : large;
+  margin-bottom: 50px;
+}
+
+.userName{
+  font-size:x-large;
+  font-weight:bold;
+  color: white;
+  background-color: #e7bef5;
+  border-radius: 1em;
+}
+
+.reviewList_text{
+  font-weight: bold;
+}
+
+.div_insert_review img{
+  width:20px;
 }
 
 .reviewList{

@@ -37,18 +37,31 @@ public class OrderController {
      * @param orderAmount
      * @return "orderSheet"
      */
-    @RequestMapping(value = "order/orderSheet.do" , method = RequestMethod.POST)
+    @RequestMapping(value = "order/orderSheet.do" , method = RequestMethod.GET)
     public String orderSheet(Model model,long productId, long userId, int orderAmount){
 
         UserDto user= userService.findByUserId(userId);
         ProductDto product = productService.findByProductId(productId);
 
-        OrderDto order= new OrderDto(orderAmount, user.getUserAddress(), user.getUserDetailAddress(),
-                product.getProductPrice()*orderAmount,user.getUserId(), user.getUserName(), user.getUserPhoneNumber(), product.getProductId(),product.getProductTitle(),product.getProductPrice());
-        System.out.println(order.toString());
+        int totalPrice = product.getProductPrice()*orderAmount;
+        String grade= user.getUserGrade();
+        int salePrice=0;
+        if(grade.equals("1")) salePrice = (int)(totalPrice*0.1);
+        else if(grade.equals("2")) salePrice = (int)(totalPrice*0.07);
+        else if(grade.equals("3")) salePrice = (int)(totalPrice*0.05);
+        else if(grade.equals("4")) salePrice = (int)(totalPrice*0.03);
+
+
+        OrderDto order= new OrderDto(orderAmount, user.getUserAddress(), user.getUserDetailAddress(),totalPrice
+                ,user.getUserId(), user.getUserName(), user.getUserPhoneNumber(), product.getProductId(),product.getProductTitle(),product.getProductPrice()
+        ,product.getProductImageUrl());
+
+        order.setProductCategory(product.getProductCategory());
+        order.setDeliveryRequirement("문 앞에 놓아주세요");
+        order.changeSalePrice(salePrice);
         model.addAttribute("order",order);
 
-        return "orderSheet";
+        return "order";
 
     }
 
@@ -63,6 +76,9 @@ public class OrderController {
      */
     @RequestMapping(value = "order/makeOrder.do" , method = RequestMethod.POST)
     public String saveOrder(Model model,OrderDto orderDto){
+
+        System.out.println("OrderController.saveOrder");
+        System.out.println(orderDto.toString());
 
         Date nowDate=new Date();
         SimpleDateFormat simpleDateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");

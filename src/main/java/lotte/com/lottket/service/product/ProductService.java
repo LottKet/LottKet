@@ -1,5 +1,6 @@
 package lotte.com.lottket.service.product;
 
+import lotte.com.lottket.dto.ProductDetailDto;
 import lotte.com.lottket.dto.ProductDto;
 import lotte.com.lottket.dto.ProductImageDto;
 import org.springframework.ui.Model;
@@ -10,7 +11,7 @@ public interface ProductService {
 
     void insertOneProduct(ProductDto dto);
     void insertOneImage(ProductImageDto dto);
-
+    void insertOneDetailImage(ProductDetailDto dto);
     boolean checkIfEmptyDB();
 
     ProductDto findByProductId(long productId);

@@ -10,32 +10,32 @@ import java.util.List;
 
 @Repository
 public class CartDaoImpl implements CartDao{
+
     @Autowired
     SqlSession session;
 
     String ns = "Cart.";
 
+    /* 내 장바구니 전부 출력 */
+    @Override
+    public List<CartDto> selectCartAll(Long userId) {
+        return session.selectList(ns + "selectCartAll", userId);
+    }
+
+    /* 장바구니 카트 하나 추가 */
     @Override
     public int insertCart(CartDto dto) {
-        return session.insert(ns + "insertCart");
-    }
-    @Override
-    public int updateCart(CartDto dto) {
-        return session.update(ns + "updateCart");
+        return session.insert(ns + "insertCart", dto);
     }
 
     @Override
-    public int deleteCart(CartDto dto) {
-        return session.delete(ns + "deleteCart");
+    public int deleteOneCart(Long cartId) {
+        return session.delete(ns + "deleteCart", cartId);
     }
 
     @Override
-    public CartDto selectCart() {
-        return (CartDto)session.selectOne(ns + "selectOne");
-    }
-    @Override
-    public List<CartDto> selectCartAll(String userId) {
-        return session.selectList(ns + "selectCartAll");
+    public int deleteAllCart(Long userId) {
+        return session.delete(ns + "deleteCartAll", userId);
     }
 
 }

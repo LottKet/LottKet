@@ -19,4 +19,6 @@ public interface ProductDetailService {
     int insertReview(HashMap<String, Object> review);
 
     int insertReply(HashMap<String, Object> reply);
+
+    int updateRate(int productId);
 }

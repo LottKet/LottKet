@@ -35,8 +35,8 @@ public class UserDaoImpl implements UserDao{
     }
 
     @Override
-    public UserDto getUser(UserDto dto) {
-        return session.selectOne(ns + "getUser");
+    public UserDto getUser(String email) {
+        return session.selectOne(ns + "getUser", email);
     }
 
     @Override

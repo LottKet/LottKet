@@ -4,10 +4,10 @@
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="User">
-    <select id="getUser" resultType="lotte.com.lottket.dto.UserDto">
+    <select id="getUser" parameterType="String" resultType="lotte.com.lottket.dto.UserDto">
         select userid, username, userprofileimage, useraddress, userdetailaddress, usergrade, userrole, usergender, userage, userbirthday, useremail
         from user
-        WHERE userid = #{userId}
+        WHERE useremail = #{email}
     </select>
 
     <select id="findByUserId" parameterType="long" resultType="lotte.com.lottket.dto.UserDto">

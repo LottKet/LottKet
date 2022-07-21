@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="Mypage">
+    <!-- NOT ajax 내 주문 전부 조회 -->
+    <select id="selectAllMyOrders" parameterType="Long" resultType="HashMap">
+        select distinct o.orderdate, o.orderid, p.producttitle
+                        pi.productimageurl, p.productprice, o.orderamount
+        from orders o , product p, productimage pi, user u
+        where pi.productid = p.productid and p.productid = o.productid
+          AND pi.productimageidx = 1 and o.userid=#{userId};
+    </select>
+
+
+    <!-- Ajax Button 처리로 배송지 변경
+    내 주문 내역에서 배송지 변경 부분
+    -->
+    <update id ="updateOrderDestination" parameterType="HashMap">
+        update orders
+        SET orderaddress = #{orderAddress}
+        WHERE orderid = #{orderId};
+    </update>
+
+
+    <!-- Ajax Button 처리로 주문 취소 -->
+    <delete id="deleteOrder" parameterType="Long">
+        delete from orders where orderid=#{orderId}
+    </delete>
+
+</mapper>

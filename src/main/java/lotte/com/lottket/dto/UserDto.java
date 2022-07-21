@@ -108,4 +108,22 @@ public class UserDto {
     public String getUserPhoneNumber() {
         return userPhoneNumber;
     }
+
+    @Override
+    public String toString() {
+        return "UserDto{" +
+                "userId=" + userId +
+                ", userName='" + userName + '\'' +
+                ", userProfileImage='" + userProfileImage + '\'' +
+                ", userAddress='" + userAddress + '\'' +
+                ", userDetailAddress='" + userDetailAddress + '\'' +
+                ", userGrade='" + userGrade + '\'' +
+                ", userRole='" + userRole + '\'' +
+                ", userGender='" + userGender + '\'' +
+                ", userAge='" + userAge + '\'' +
+                ", userBirthday='" + userBirthday + '\'' +
+                ", userEmail='" + userEmail + '\'' +
+                ", userPhoneNumber='" + userPhoneNumber + '\'' +
+                '}';
+    }
 }

@@ -36,7 +36,6 @@ public class CategoryController {
         model.addAttribute("productList",categoryService.findByCategory(productCategory));
         model.addAttribute("category", productCategory);
 
-
         return "category";
     }
 
@@ -68,7 +67,9 @@ public class CategoryController {
     public List<ProductDto> findByCategoryOrderByProductRegDate(String productCategory, String search){
         logger.info("CategoryController findByCategoryOrderByProductRegDate() ");
 
-        return categoryService.findByCategoryOrderByProductRegDate(search,productCategory);
+        List<ProductDto> list =categoryService.findByCategoryOrderByProductRegDate(search,productCategory);
+
+        return list;
 
     }
 

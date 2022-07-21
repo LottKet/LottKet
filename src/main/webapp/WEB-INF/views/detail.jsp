@@ -90,19 +90,20 @@
       </script>
 
 <%--      <script> sessionStorage.clear()</script>--%>
+
     </div>
     <div class="detail_product_img3">
 
       <div data-v-765eb084="">
         <div data-v-765eb084="" class="priceWrap">
           <div data-v-765eb084="" class="priceInfo">
-            <div data-v-765eb084="" class="price"><span data-v-765eb084=""> [온세일][반에이크] 여름 베스트아이템 온라인 최대 시즌오프 </span>
+            <div data-v-765eb084="" class="price"><span data-v-765eb084=""> <%=productDto.getProductTitle()%> </span>
             </div>
           </div>
 
           <div data-v-765eb084="" class="priceInfo" style="margin-bottom:8%;">
             <div data-v-765eb084="" class="price"><span data-v-765eb084="" class="discountRate"> 가격 : &nbsp;
-                </span><span data-v-765eb084=""> 3,800 원 </span><em data-v-765eb084="">
+                </span><span data-v-765eb084=""> <%=productDto.getProductPrice()%> 원 </span><em data-v-765eb084="">
 
             </em>
             </div>
@@ -110,7 +111,7 @@
 
           <div data-v-765eb084="" class="priceInfo" style="margin-bottom:8%;">
             <div data-v-765eb084="" class="price"><span data-v-765eb084="" class="discountRate"> 평점 : &nbsp;
-                </span><span data-v-765eb084=""> 4.8 점 </span><em data-v-765eb084="">
+                </span><span data-v-765eb084=""> <%=String.format("%.1f",productDto.getProductTotalRate())%> 점 </span><em data-v-765eb084="">
 
             </em>
             </div>
@@ -118,7 +119,7 @@
 
           <div data-v-765eb084="" class="priceInfo" style="margin-bottom:6%;">
             <div data-v-765eb084="" class="price"><span data-v-765eb084="" class="discountRate"> 재고 : &nbsp;
-                </span><span data-v-765eb084=""> 7 개 </span><em data-v-765eb084="">
+                </span><span data-v-765eb084=""> <%=productDto.getProductStock()%> 개 </span><em data-v-765eb084="">
 
             </em>
             </div>
@@ -143,7 +144,7 @@
         <div class="button_order">
           <button data-v-2292bccc="" data-v-3927112e=""
                   data-object="type=add_to_cart&amp;coupon=&amp;value=4800&amp;price=3420&amp;quantity=1&amp;cat_id=BC34050100&amp;tr_grp_cd=SR&amp;tr_no=LD476977&amp;lrtr_no=null"
-                  class="strokeRed util sizeLarge alignLeft" data-v-3351bf4b="" onclick=""><span data-v-2292bccc=""
+                  class="strokeRed util sizeLarge alignLeft" data-v-3351bf4b="" onclick="purchase()"><span data-v-2292bccc=""
                                                                                                  class="inner">
                 <!----><span data-v-2292bccc="" class="">
                   바로 구매하기
@@ -164,7 +165,7 @@
       for (int i=0; i<productDetailDto.size(); i++){
     %>
     <!-- <img src=""> -->
-    <img style="width:1000px; height:1000px;" src="<%=productDetailDto.get(i).getProductDetailImageUrl()%>">
+    <img style="width:70%; height:70%;" src="<%=productDetailDto.get(i).getProductDetailImageUrl()%>">
     <%
       }
     %>
@@ -174,7 +175,7 @@
   <br><br>
   <hr>
   <br><br>
-  <div class="detail_review" style="width:1200px; height:2000px; background-color:rgb(255, 255, 255);">
+  <div class="detail_review" style="width:1200px; background-color:rgb(255, 255, 255);">
     <div style="width:1000px;">
       <div style="margin-bottom:50px;">
         <ul style="display:flex">
@@ -214,65 +215,60 @@
             }
           };
         </script>
-
-        <form style="margin-top:10px;">
-          <p><textarea cols="50" rows="5" style="width:700px"></textarea></p>
+        <form style="margin-top:10px;" action="javascript:insertReview()">
+          <p><textarea id="content" cols="50" rows="5" style="width:700px"></textarea></p>
           <p><input type="submit" value="Submit"></p>
         </form>
       </div>
       <br><br><br>
-      <%
-        for(int i=0; i<reviewJoinUserDto.size(); i++){
-          SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd");
-          String strDate = sDate.format(reviewJoinUserDto.get(i).getReviewDate());
-      %>
-      <div class="reviewList">
-        <div class="uswersAndMoremenu">
-          <div class="users">
-            <%--            <img src="<%=reviewJoinUserDto.get(i).getUserProfileImage()%>"--%>
-            <%--                                  style="border-radius:1.5em; margin-right:10px;">--%>
-            <div class="identities">
-              <div class="userNameWrap">
-                <img src="<%=reviewJoinUserDto.get(i).getUserProfileImage()%>"
-                     style="border-radius:1.5em; margin-right:10px;">
-                <strong class="userName">&nbsp;&nbsp;<%=reviewJoinUserDto.get(i).getUserName()%>&nbsp;&nbsp;</strong><span class="info">
-                    <br><br> <%=reviewJoinUserDto.get(i).getUserGrade()%>등급 &nbsp;&nbsp;&nbsp;등록일 :
-                    <%=strDate%></span></div>
-              <div class="badges"></div>
+
+      <div id="commentdiv">
+        <%
+          for(int i=0; i<reviewJoinUserDto.size(); i++){
+            SimpleDateFormat sDate = new SimpleDateFormat("yyyy-MM-dd");
+            String strDate = sDate.format(reviewJoinUserDto.get(i).getReviewDate());
+        %>
+        <div class="reviewList">
+          <div class="uswersAndMoremenu">
+            <div class="users">
+              <%--            <img src="<%=reviewJoinUserDto.get(i).getUserProfileImage()%>"--%>
+              <%--                                  style="border-radius:1.5em; margin-right:10px;">--%>
+              <div class="identities">
+                <div class="userNameWrap">
+                  <img src="<%=reviewJoinUserDto.get(i).getUserProfileImage()%>"
+                       style="border-radius:1.5em; margin-right:10px;">
+                  <strong class="userName">&nbsp;&nbsp;<%=reviewJoinUserDto.get(i).getUserName()%>&nbsp;&nbsp;</strong><span class="info">
+                      <br><br> <%=reviewJoinUserDto.get(i).getUserGrade()%>등급 &nbsp;&nbsp;&nbsp;등록일 :
+                      <%=strDate%></span></div>
+                <div class="badges"></div>
+              </div>
             </div>
           </div>
+          <br>
+          <span class="reviewList_avg">평점 : <%=reviewJoinUserDto.get(i).getRating()%></span>
+          <br><br>
+
+          <span class="reviewList_text"><%=reviewJoinUserDto.get(i).getContent()%></span>
+          <button type="button" style="margin-left:50px;" onclick='admin_reply("<%=reviewJoinUserDto.get(i).getReviewId()%>")'>답글 작성</button>
+
+          <div id="replydiv<%=reviewJoinUserDto.get(i).getReviewId()%>" style="margin-left:80px; margin-top:20px; display:none;" >
+            <span>관리자아이디 넣어주세염</span>
+            <form style="margin-top:10px;">
+              <p><textarea cols="50" rows="5" style="width:700px"></textarea></p>
+              <p style="padding-bottom: 15px;
+                 padding-top: 10px"><input type="submit" value="Submit"></p>
+            </form>
+          </div>
         </div>
-        <br>
-        <span class="reviewList_avg">평점 : <%=reviewJoinUserDto.get(i).getRating()%></span>
+        <hr style="color:gray; margin-top:15px;">
         <br><br>
 
-        <span class="reviewList_text"><%=reviewJoinUserDto.get(i).getContent()%></span>
-        <button type="button" style="margin-left:50px;" onclick="admin_reply()">답글 작성</button>
-
-        <div style="margin-left:50px; margin-top:20px;">
-          <span>관리자아이디 넣어주세염</span>
-          <form style="margin-top:10px;">
-            <p><textarea cols="50" rows="5" style="width:700px"></textarea></p>
-            <p><input type="submit" value="Submit"></p>
-          </form>
-        </div>
+      </div>
+        <%
+          }
+        %>
     </div>
-      <hr style="color:gray;">
-      <br><br>
-    <%
-      }
-    %>
-
-      <script>
-        function admin_reply() {
-
-        }
-
-      </script>
-
   </div>
-</div>
-
 
 </div>
 
@@ -298,6 +294,31 @@
     document.getElementById('quantity').innerText = parseInt($("#quantity").text().toString()) + 1;
   }
 
+  function insertReview(){
+    let content = $("#content").val();
+    document.getElementById("div_insert_review").style.display = "none";
+    document.getElementById("content").value="";
+    $.ajax({
+      url:"<%=request.getContextPath()%>/insertReview.do",
+      data:{content:content, productId:<%=productDto.getProductId()%>},
+      method:"get",
+      success:function(data){
+        console.log(data);
+        $("#commentdiv").html(data);
+      }
+    });
+  }
+
+  function admin_reply(index) {
+    document.getElementById("replydiv"+index).style.display = "";
+  }
+
+  function purchase(){
+    let quantity = parseInt($("#quantity").text().toString());
+    let productid = <%=productDto.getProductId()%>;
+    console.log(quantity, productid,sessionStorage.getItem("id"));
+    location.href="order/orderSheet.do?productId="+productid+"&userId="+sessionStorage.getItem("id")+"&orderAmount="+quantity;
+  }
 </script>
 
 </body>

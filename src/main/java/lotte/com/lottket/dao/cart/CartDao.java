@@ -6,9 +6,12 @@ import lotte.com.lottket.dto.ProductDto;
 import java.util.List;
 
 public interface CartDao {
+
+     List<CartDto> selectCartAll(Long userId);
+
      int insertCart(CartDto dto);
-     int updateCart(CartDto dto);
-     int deleteCart(CartDto dto);
-     CartDto selectCart();
-     List<CartDto> selectCartAll(String userId);
+
+     int deleteOneCart(Long cartId);
+
+     int deleteAllCart(Long userId);
 }

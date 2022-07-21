@@ -11,7 +11,7 @@ a<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 <%
     // request 는 mypage.do 에서 return 한 model임
     request.setCharacterEncoding("utf-8");
-    List<HashMap> list=(List<HashMap>)request.getAttribute("list");
+    List<OrderDto> orderList=(List<OrderDto>)request.getAttribute("orderList");
     Long userId = (Long)request.getAttribute("userId");
 %>
 <!DOCTYPE html>
@@ -81,7 +81,7 @@ a<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
 <div class="contentWrap" style="width:80%; margin-left:10%; margin-bottom:10%">
     <div class="searchWrap">
         <div class="title lineBlack">
-            <h2>나의 주문 내역</h2>
+            <h2>주문/배송 내역</h2>
             <div class="onlySearchForm regularDate datePickerSearch">
                 <div class="searchForm">
                 </div>
@@ -89,8 +89,11 @@ a<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
         </div>
         <div class="orderGroupWrap">
             <%
-                for(int i=0; i<list.size(); i++){
-                    HashMap param =  list.get(i);
+                for(int i=0; i<orderList.size(); i++){
+                    OrderDto dto =  orderList.get(i);
+                    Long productId = dto.getProductId();
+
+                }
             %>
 
             <div class="topInformation grayBox" style="display:flex;">
@@ -100,17 +103,17 @@ a<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
                          class="loaded">
                 </div>
                 <div class="information" style="width:500px; margin-left:5%">
-                    <span>주문날짜</span>
-                    <span class="date"><%= param.get("o.orderdate")%></span>
+                    <span>날짜</span>
+                    <span class="date">2022.07.16</span>
                     <br>
                     <span>주문번호</span>
                     <span class="orderNumber">
-              <%= param.get("o.orderid")%>
+              2022071619353482
             </span>
                     <br><br>
                     <span>배송지</span>
                     <span class="orderNumber">
-              <%= param.get("o.orderaddress") %> <%= param.get("o.orderdetailaddress")%>
+              서울시 강남구 비트교육센터
             </span>
                     <button onclick="where()"> 배송지 변경</button>
                     <br><br>
@@ -118,11 +121,11 @@ a<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
                         <div class="goodsWrap" is-cart="true">
                             <div class="textWrap">
                                 <p class="title">
-                                    <%=param.get("o.orderamount")%> 이거 말고 getProductTitle 받아야함
+                                    행복생생란(대란, 30입) (1.56KG)
                                 </p>
-                                <div class="text"><span class="price"><em><%= param.get("p.producttitle")%>말고 productPrice</em>원
+                                <div class="text"><span class="price"><em>6,990</em>원
                     </span>
-                                    <em class="count">수량 <%= param.get("o.orderamount")%></em></div>
+                                    <em class="count">수량 1</em></div>
                             </div>
                         </div>
                     </div>
@@ -137,9 +140,52 @@ a<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="U
             </div>
 
             <br><br><br><br>
-            <%
-                }
-            %>
+
+            <div class="topInformation grayBox" style="display:flex;">
+                <div class="imgWrap">
+                    <img style="width:300px; height:200px;"
+                         src="https://contents.lotteon.com/itemimage/_v170000/LM/88/03/36/57/50/35/9_/00/1/LM8803365750359_001_M.jpg/dims/resize/128x128"
+                         class="loaded">
+                </div>
+                <div class="information" style="width:500px; margin-left:5%">
+                    <span>날짜</span>
+                    <span class="date">2022.07.16</span>
+                    <br>
+                    <span>주문번호</span>
+                    <span class="orderNumber">
+              2022071619353482
+            </span>
+                    <br><br>
+                    <span>배송지</span>
+                    <span class="orderNumber">
+              서울시 강남구 비트교육센터
+            </span>
+                    <button> 배송지 변경</button>
+                    <br><br>
+                    <div class="orderGoodsItem">
+                        <div class="goodsWrap" is-cart="true">
+                            <div class="textWrap">
+                                <p class="title">
+                                    행복생생란(대란, 30입) (1.56KG)
+                                </p>
+                                <div class="text"><span class="price"><em>6,990</em>원
+                    </span>
+                                    <em class="count">수량 1</em></div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="orderStatusInfo">
+                        <div class="orderStatusInfoButtons" odno="2022071619353482" btnlist="1020"><button type="button"
+                                                                                                           class="btnAction">
+                            취소하기
+                        </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+
+
         </div>
     </div>
 </div>

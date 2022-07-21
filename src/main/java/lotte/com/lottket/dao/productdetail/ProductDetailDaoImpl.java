@@ -47,4 +47,6 @@ public class ProductDetailDaoImpl implements ProductDetailDao{
     @Override
     public int insertReply(HashMap<String, Object> reply) { return session.insert(ns+"insertReply", reply); }
 
+    @Override
+    public int updateRate(int productId) { return session.update(ns+"updateRate", productId);}
 }

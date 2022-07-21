@@ -9,15 +9,27 @@ import java.util.List;
 
 @Service
 public class CartServiceImpl implements CartService{
+
     @Autowired
     CartDao dao;
 
-    public int insertCart(CartDto dto) {
+    @Override
+    public List<CartDto> findAllCart(Long userId) {
+        return dao.selectCartAll(userId);
+    }
+
+    @Override
+    public int addNewCart(CartDto dto) {
         return dao.insertCart(dto);
     }
 
     @Override
-    public List<CartDto> selectAllByUid(String userId) {
-        return dao.selectCartAll(userId);
+    public int deleteOneCart(Long cartId) {
+        return dao.deleteOneCart(cartId);
+    }
+
+    @Override
+    public int deleteAllCart(Long userId) {
+        return dao.deleteAllCart(userId);
     }
 }

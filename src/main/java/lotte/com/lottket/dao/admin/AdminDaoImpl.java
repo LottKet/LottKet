@@ -1,5 +1,6 @@
 package lotte.com.lottket.dao.admin;
 
+import lotte.com.lottket.dto.OrdersDto;
 import org.apache.ibatis.session.SqlSession;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -7,6 +8,8 @@ import org.springframework.stereotype.Repository;
 
 import java.util.HashMap;
 import java.util.List;
+
+import static com.mysql.cj.conf.PropertyKey.logger;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
@@ -25,15 +28,12 @@ public class AdminDaoImpl implements AdminDao {
      */
     @Override
     public List<HashMap> selectStatistics(HashMap map) {
-        log.info("hi");
-        log.info(map);
-        log.info(map.get("startdate")+""+map.get("enddate")+""+map.get("category"));
         if (map.get("date").equals("day")) {
-            return session.selectList(ns+"salesdaytotal",map);
+            return session.selectList(ns + "salesdaytotal", map);
         } else if (map.get("date").equals("week")) {
-            return session.selectList(ns+"salesweektotal",map);
-        }else if ((map.get("date")).equals("month")){
-            return session.selectList(ns+"salesmonthtotal",map);
+            return session.selectList(ns + "salesweektotal", map);
+        } else if ((map.get("date")).equals("month")) {
+            return session.selectList(ns + "salesmonthtotal", map);
         }
         return null;
     }
@@ -44,8 +44,8 @@ public class AdminDaoImpl implements AdminDao {
      * @return List<HashMap>
      */
     @Override
-    public List<HashMap> selectTotalOrders(HashMap map) {
-        return session.selectList(ns+"totalorders",map);
+    public List<OrdersDto> selectTotalOrders(HashMap map) {
+        return session.selectList(ns + "totalorders", map);
     }
 
     /***
@@ -55,7 +55,7 @@ public class AdminDaoImpl implements AdminDao {
      */
     @Override
     public List<HashMap> selectPopulalityProduct(HashMap map) {
-        return session.selectList(ns+"populalityproduct",map);
+        return session.selectList(ns + "populalityproduct", map);
     }
 
     /***
@@ -65,7 +65,7 @@ public class AdminDaoImpl implements AdminDao {
      */
     @Override
     public HashMap<String, Object> selectAgeStatistics(HashMap map) {
-        return session.selectOne(ns+"agestatistics",map);
+        return session.selectOne(ns + "agestatistics", map);
     }
 
     /***
@@ -75,6 +75,6 @@ public class AdminDaoImpl implements AdminDao {
      */
     @Override
     public HashMap<String, Object> selectGenderStatistics(HashMap map) {
-        return session.selectOne(ns+"genderstatistics",map);
+        return session.selectOne(ns + "genderstatistics", map);
     }
 }

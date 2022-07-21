@@ -2,46 +2,58 @@ package lotte.com.lottket.dto;
 
 public class CartDto {
 
-    private int cartId;
-    private int userId;
-    private int productId;
+    private Long cartId;
+    private Long userId;
+    private Long productId;
     private int amount;
 
     public CartDto() {
 
     }
 
-    public CartDto(int userId, int productId, int amount) {
-        this.userId = userId;
-        this.productId = productId;
-        this.amount = amount;
-    }
-
-    public CartDto(int cartId, int userId, int productId, int amount) {
+    public CartDto(Long cartId, Long userId, Long productId, int amount) {
         this.cartId = cartId;
         this.userId = userId;
         this.productId = productId;
         this.amount = amount;
     }
 
-    public int getCartId() {
+    public CartDto(Long userId, Long productId, int amount) {
+        this.userId = userId;
+        this.productId = productId;
+        this.amount = amount;
+    }
+
+    public long getCartId() {
         return cartId;
     }
 
-    public int getUserId() {
+    public void setCartId(Long cartId) {
+        this.cartId = cartId;
+    }
+
+    public long getUserId() {
         return userId;
     }
 
-    public int getProductId() {
-        return productId;}
+    public void setUserId(Long userId) {
+        this.userId = userId;
+    }
 
-    public int productId()
-    {
+    public long getProductId() {
         return productId;
+    }
+
+    public void setProductId(Long productId) {
+        this.productId = productId;
     }
 
     public int getAmount() {
         return amount;
+    }
+
+    public void setAmount(int amount) {
+        this.amount = amount;
     }
 
     @Override

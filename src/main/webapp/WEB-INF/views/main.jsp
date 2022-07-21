@@ -1,5 +1,6 @@
 <%@ page import="lotte.com.lottket.dto.ProductImageDto" %>
-<%@ page import="java.util.List" %><%--
+<%@ page import="java.util.List" %>
+<%@ page import="lotte.com.lottket.dto.UserDto" %><%--
   Created by IntelliJ IDEA.
   User: BTC-N24
   Date: 2022-07-19
@@ -148,6 +149,7 @@
 
     <div class="div_best" style="height:270px; overflow: hidden;">
         <h2 style="margin-left: 43%;">베스트</h2>
+        <button type="button" onclick="moveadmin()">moveadmin</button>
         <ul>
             <%
                 for(ProductImageDto productImageDto : bestProduct) {
@@ -198,15 +200,21 @@
                 }
             %>
         </ul>
-    </div>
+    </div>--%>
 </div>
+
+<script>
+    function moveadmin() {
+        location.href = "<%=request.getContextPath() %>/moveadmin.do";
+    }
+</script>
 <footer id="footer">
     <script src="js/footer.js"></script>
 </footer>
 
 <script>
     function moveDetail(id) {
-        location.href = "<%=request.getContextPath() %>/detail?productid=" + id;
+        location.href = "<%=request.getContextPath() %>/detail.do?productid=" + id;
     }
 </script>
 </body>

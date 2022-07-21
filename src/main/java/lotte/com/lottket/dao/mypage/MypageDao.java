@@ -1,11 +1,11 @@
-package lotte.com.lottket.service.mypage;
+package lotte.com.lottket.dao.mypage;
 
 import lotte.com.lottket.dto.OrderDto;
 
 import java.util.HashMap;
 import java.util.List;
 
-public interface MypageService {
+public interface MypageDao {
 
     List<HashMap> showAllMyOrders(Long userId);
 

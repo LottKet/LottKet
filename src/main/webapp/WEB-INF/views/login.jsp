@@ -57,19 +57,23 @@
           url: '/v2/user/me',
           success: function (result) {
             sendRequest(result);
+            console.log(result);
+            const sessionData = result.kakao_account.email;
+            const id = result.id;
+            const name = result.kakao_account.profile.nickname;
 
-            const sessionData = response;
-            // const sessionData = response.kakao_account.email;
+            sessionStorage.setItem("id", id ); // 저장
+            sessionStorage.setItem("name", name ); // 저장
+            sessionStorage.setItem("email", sessionData ); // 저장
 
-            sessionStorage.setItem("sessionId", sessionData ); // 저장
-
-            if (sessionStorage.getItem("sessionId") != null) {
-              window.location = "main.do"
+            if (sessionStorage.getItem("id") != null) {
+              location.href = "main.do";
             }
 
           },
           fail: function (error) {
             console.log(error)
+            console.log("여가");
           },
         })
       },
@@ -134,7 +138,13 @@
       data:JSON.stringify(response),
       dataType:'text',
       contentType:"application/json;charset=UTF-8",
-      success: function (result) {}
+      success: function (result) {
+        let obj = JSON.parse(result);
+        const grade = obj.grade;
+        const role = obj.role;
+        sessionStorage.setItem("grade", grade ); // 저장
+        sessionStorage.setItem("role", role ); // 저장
+      }
     });
   }
 

@@ -1,6 +1,7 @@
 package lotte.com.lottket.service.product;
 
 import lotte.com.lottket.dao.product.ProductDao;
+import lotte.com.lottket.dto.ProductDetailDto;
 import lotte.com.lottket.dto.ProductDto;
 import lotte.com.lottket.dto.ProductImageDto;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,11 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public void insertOneImage(ProductImageDto dto) {
         dao.insertOneImage(dto);
+    }
+
+    @Override
+    public void insertOneDetailImage(ProductDetailDto dto) {
+        dao.insertOneDetailImage(dto);
     }
 
     public boolean checkIfEmptyDB() {

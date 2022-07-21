@@ -28,6 +28,7 @@
 	select r.reviewid, r.userid, r.productid, r.content, r.reviewdate, r.rating, u.username, u.userprofileimage, u.usergrade
 	from review r, user u
 	where r.userid =  u.userid and r.productid = #{id}
+	order by reviewdate desc;
 </select>
 
 <select id="replyById" parameterType="Integer" resultType="lotte.com.lottket.dto.ReviewJoinReply">
@@ -45,6 +46,14 @@
 		insert into reply (reviewid, content, replydate)
 		values (#{replyId},#{content},now())
 	</insert>
+
+	<update id="updateRate" parameterType="Integer">
+		update product
+		set producttotalrate = (select avg(rating)
+		                        from review
+		                        where productId = #{productId})
+		where productId = #{productId}
+	</update>
 </mapper>
 
 

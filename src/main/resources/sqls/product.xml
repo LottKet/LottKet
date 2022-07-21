@@ -22,6 +22,11 @@
         VALUES (#{productId}, #{productImageIdx}, #{productImageUrl})
     </insert>
 
+    <insert id="insertOneDetailImage" parameterType="lotte.com.lottket.dto.ProductDetailDto">
+        INSERT INTO productdetail (productid, productdetailimageurl)
+        VALUES (#{productId}, #{productDetailImageUrl})
+    </insert>
+
     <!-- productDto로 insert하기 -->
     <insert id="insertProduct" parameterType="lotte.com.lottket.dto.ProductDto" >
         INSERT INTO product
@@ -52,7 +57,7 @@
     </select>
 
     <!-- 모두 갖고오기 -->
-    <select id="selectProductAll">
+    <select id="selectProductAll" resultType="lotte.com.lottket.dto.ProductDto">
         SELECT * FROM product
     </select>
 
@@ -70,8 +75,9 @@
 
     <select id="findByProductId" parameterType="long" resultType="lotte.com.lottket.dto.ProductDto">
         select *
-        from product
-        where productid=#{productId}
+        from product p join productimage i
+        on p.productid = i.productid
+        where p.productid=#{productId} and i.productimageidx=1
     </select>
 
     <!-- 베스트 조회 -->

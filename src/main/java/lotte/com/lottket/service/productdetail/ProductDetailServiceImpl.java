@@ -38,4 +38,7 @@ public class ProductDetailServiceImpl implements ProductDetailService{
 
     @Override
     public int insertReply(HashMap<String, Object> reply) { return productDetailDao.insertReply(reply); }
+
+    @Override
+    public int updateRate(int productId) { return productDetailDao.updateRate(productId);}
 }

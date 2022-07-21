@@ -10,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Controller
 public class UserController {
     Logger logger = LoggerFactory.getLogger(UserController.class);
@@ -31,48 +33,53 @@ public class UserController {
     @ResponseBody
     public String signIn(@RequestBody String json) {
         System.out.println(json);
+        String userName="", userProfileImage="", userGender="", userAge="", userBirthday="", userEmail="";
         //더 좋은 방법 없을까
         JSONObject jObject = new JSONObject(json);
         //userId
         Long userId = jObject.getLong("id");
         JSONObject kakao = jObject.getJSONObject("kakao_account");
         //userAge
-        String userAge = kakao.getString("age_range");
+        if(kakao.has("age_range")) {
+            userAge = kakao.getString("age_range");
+        }
         //userBirthday
-        String userBirthday = kakao.getString("birthday");
+        if(kakao.has("birthday")) {
+            userBirthday = kakao.getString("birthday");
+        }
         //userEmail
-        String userEmail = kakao.getString("email");
+        if(kakao.has("email")) {
+            userEmail = kakao.getString("email");
+        }
         //userGender
-        String userGender = kakao.getString("gender");
-
+        if(kakao.has("userGender")) {
+            userGender = kakao.getString("gender");
+        }
         JSONObject profile = kakao.getJSONObject("profile");
         //userName
-        String userName = profile.getString("nickname");
+        if(profile.has("nickname")) {
+            userName = profile.getString("nickname");
+        }
         //userProfileImage
-        String userProfileImage = profile.getString("thumbnail_image_url");
-
+        if(profile.has("userProfileImage")) {
+            userProfileImage = profile.getString("thumbnail_image_url");
+        }
         //address, detailAddress는 따로 받아 온다고 생각.
         String userAddress="";
         String userDetailAddress="";
-        UserDto dto = new UserDto(userId, userName, userProfileImage, userAddress, userDetailAddress, null, null, userGender, userAge, userBirthday, userEmail);
-        //UserDto dto = new UserDto(userId);
+        UserDto dto = new UserDto(userId, userName, userProfileImage, userAddress, userDetailAddress, "5", "user", userGender, userAge, userBirthday, userEmail);
         int count = service.signIn(dto);
 
-        switch(count) {
-            case 0:
-                return "fail";
-            case 1:
-                return "signIn";
-            case 2:
-                return "signUp";
-        }
-        return "error";
+        String result = "{\"grade\":\"" + dto.getUserGrade() + "\", \"role\":\"" + dto.getUserRole() + "\"}";
+
+        return result;
     }
 
 
     @RequestMapping(value="getUser.do", method = RequestMethod.GET)
-    public UserDto getUser(UserDto dto) {
-        return service.getUser(dto);
+    @ResponseBody
+    public UserDto getUser(String email) {
+        return service.getUser(email);
     }
 
     @RequestMapping(value="updateAddress.do", method = RequestMethod.POST)

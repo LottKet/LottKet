@@ -1,6 +1,7 @@
 package lotte.com.lottket.service.admin;
 
 import lotte.com.lottket.dao.admin.AdminDao;
+import lotte.com.lottket.dto.OrdersDto;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -30,7 +31,7 @@ public class AdminServiceImpl implements AdminService {
      * @return List<HashMap>
      */
     @Override
-    public List<HashMap> selectTotalOrders(HashMap map) {
+    public List<OrdersDto> selectTotalOrders(HashMap map) {
         return adminDao.selectTotalOrders(map);
     }
 
